@@ -1,5 +1,6 @@
-package com.example.turboaz.dao;
+package com.example.turboaz.dao.entity;
 
+import com.example.turboaz.dao.entity.CarEntity;
 import com.example.turboaz.enums.TransactionStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

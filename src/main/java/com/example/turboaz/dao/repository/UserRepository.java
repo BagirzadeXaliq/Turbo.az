@@ -1,5 +1,6 @@
-package com.example.turboaz.dao;
+package com.example.turboaz.dao.repository;
 
+import com.example.turboaz.dao.entity.UserEntity;
 import com.example.turboaz.enums.UserStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

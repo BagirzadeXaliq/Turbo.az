@@ -1,7 +1,7 @@
 package com.example.turboaz.scheduler;
 
-import com.example.turboaz.dao.PasswordResetTokenEntity;
-import com.example.turboaz.dao.PasswordResetTokenRepository;
+import com.example.turboaz.dao.entity.PasswordResetTokenEntity;
+import com.example.turboaz.dao.repository.PasswordResetTokenRepository;
 import com.example.turboaz.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;

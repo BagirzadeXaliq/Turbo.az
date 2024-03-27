@@ -1,4 +1,4 @@
-package com.example.turboaz.dao;
+package com.example.turboaz.dao.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

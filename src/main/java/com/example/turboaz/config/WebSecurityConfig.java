@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
@@ -35,17 +36,17 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET,"/users/status").authenticated()
                                 .requestMatchers(HttpMethod.PATCH,"/users/status/update").authenticated()
                                 .requestMatchers(HttpMethod.GET,"/users/list").authenticated()
-                                .requestMatchers(HttpMethod.POST,"/cars").permitAll()
-                                .requestMatchers(HttpMethod.DELETE,"/cars/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/cars").hasAnyRole(USER)
+                                .requestMatchers(HttpMethod.DELETE,"/cars/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.PUT,"/cars/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.GET,"/cars/details/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/cars/list").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/images").permitAll()
-                                .requestMatchers(HttpMethod.DELETE,"/images/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT,"/images/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/images").hasAnyRole(USER)
+                                .requestMatchers(HttpMethod.DELETE,"/images/**").hasAnyRole(USER)
+                                .requestMatchers(HttpMethod.PUT,"/images/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.GET,"/images/list/**").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/reviews").permitAll()
-                                .requestMatchers(HttpMethod.DELETE,"/reviews/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/reviews").hasAnyRole(USER)
+                                .requestMatchers(HttpMethod.DELETE,"/reviews/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.PUT,"/reviews/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.GET,"/reviews/list/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/transactions").hasAnyRole(USER)

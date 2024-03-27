@@ -1,6 +1,6 @@
 package com.example.turboaz.mapper;
 
-import com.example.turboaz.dao.ReviewEntity;
+import com.example.turboaz.dao.entity.ReviewEntity;
 import com.example.turboaz.model.ReviewDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;

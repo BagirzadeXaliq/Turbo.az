@@ -1,8 +1,8 @@
 package com.example.turboaz.service.utility;
 
-import com.example.turboaz.dao.AuthorityEntity;
-import com.example.turboaz.dao.UserEntity;
-import com.example.turboaz.dao.UserRepository;
+import com.example.turboaz.dao.entity.AuthorityEntity;
+import com.example.turboaz.dao.entity.UserEntity;
+import com.example.turboaz.dao.repository.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

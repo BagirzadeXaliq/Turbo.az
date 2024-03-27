@@ -1,6 +1,6 @@
 package com.example.turboaz.mapper;
 
-import com.example.turboaz.dao.TransactionEntity;
+import com.example.turboaz.dao.entity.TransactionEntity;
 import com.example.turboaz.model.TransactionDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;

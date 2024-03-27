@@ -1,7 +1,7 @@
 package com.example.turboaz.service;
 
-import com.example.turboaz.dao.ReviewEntity;
-import com.example.turboaz.dao.ReviewRepository;
+import com.example.turboaz.dao.entity.ReviewEntity;
+import com.example.turboaz.dao.repository.ReviewRepository;
 import com.example.turboaz.exception.ReviewNotFoundException;
 import com.example.turboaz.mapper.ReviewMapper;
 import com.example.turboaz.model.ReviewDTO;

@@ -1,6 +1,6 @@
 package com.example.turboaz.mapper;
 
-import com.example.turboaz.dao.RoleEntity;
+import com.example.turboaz.dao.entity.RoleEntity;
 import com.example.turboaz.model.RoleDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;

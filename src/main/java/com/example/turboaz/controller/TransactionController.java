@@ -4,6 +4,7 @@ import com.example.turboaz.model.TransactionCancellationDTO;
 import com.example.turboaz.model.TransactionDTO;
 import com.example.turboaz.model.TransactionStatusUpdateDTO;
 import com.example.turboaz.service.TransactionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,17 +17,17 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping
-    public void initiateTransaction(@RequestBody TransactionDTO transactionDTO) {
+    public void initiateTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
         transactionService.initiateTransaction(transactionDTO);
     }
 
     @PutMapping ("/update-status")
-    public void updateTransactionStatus(@RequestBody TransactionStatusUpdateDTO updatedTransactionStatus) {
+    public void updateTransactionStatus(@Valid @RequestBody TransactionStatusUpdateDTO updatedTransactionStatus) {
         transactionService.updateTransactionStatus(updatedTransactionStatus);
     }
 
     @PostMapping("/cancel")
-    public void cancelTransaction(@RequestBody TransactionCancellationDTO cancellationDTO) {
+    public void cancelTransaction(@Valid @RequestBody TransactionCancellationDTO cancellationDTO) {
         transactionService.cancelTransaction(cancellationDTO);
     }
 

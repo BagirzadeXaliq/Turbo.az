@@ -1,6 +1,6 @@
 package com.example.turboaz.mapper;
 
-import com.example.turboaz.dao.ImageEntity;
+import com.example.turboaz.dao.entity.ImageEntity;
 import com.example.turboaz.model.ImageDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;

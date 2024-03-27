@@ -1,7 +1,7 @@
 package com.example.turboaz.service;
 
-import com.example.turboaz.dao.CarEntity;
-import com.example.turboaz.dao.CarRepository;
+import com.example.turboaz.dao.entity.CarEntity;
+import com.example.turboaz.dao.repository.CarRepository;
 import com.example.turboaz.exception.CarNotFoundException;
 import com.example.turboaz.mapper.CarMapper;
 import com.example.turboaz.model.CarDTO;
@@ -68,7 +68,6 @@ public class CarService {
         log.info("Car details fetched successfully for car ID: {}", carId);
         return carMapper.mapToDTO(carEntity);
     }
-
 
     public Page<CarDTO> listCars(CarFilterDTO carFilterDto, Pageable pageable) {
         log.info("Fetching list of cars with filter: {}", carFilterDto);

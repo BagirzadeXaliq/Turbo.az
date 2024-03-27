@@ -4,13 +4,14 @@ create table roles (
 );
 
 create table users (
-    user_id serial primary key,
+    user_id bigserial primary key,
     username varchar(255) unique not null,
-    password varchar(255) not null
+    password varchar(255) not null,
+    status varchar(255)
 );
 
 create table cars (
-    car_id serial primary key,
+    car_id bigserial primary key,
     brand varchar(255) not null,
     model varchar(255) not null,
     year integer,
@@ -18,13 +19,13 @@ create table cars (
 );
 
 create table images (
-    image_id serial primary key,
+    image_id bigserial primary key,
     car_id bigint references cars(car_id),
     image_url varchar(255) not null
 );
 
 create table transactions (
-    transaction_id serial primary key,
+    transaction_id bigserial primary key,
     buyer_user_id bigint references users(user_id),
     seller_user_id bigint references users(user_id),
     car_id bigint references cars(car_id),
@@ -32,14 +33,25 @@ create table transactions (
 );
 
 create table reviews (
-    review_id serial primary key,
+    review_id bigserial primary key,
     user_id bigint references users(user_id),
     car_id bigint references cars(car_id),
-    review text not null
+    review varchar(255) not null
 );
 
 create table user_roles (
-    user_id bigint references users(user_id) ,
-    role_id integer references roles(role_id),
+    user_id bigint not null references users(user_id),
+    role_id integer not null references roles(role_id),
     primary key (user_id, role_id)
+);
+
+create table authorities (
+    name varchar(255) not null primary key
+);
+
+create table password_reset_tokens (
+    id bigserial primary key,
+    token varchar(255) not null,
+    expiry_date timestamp not null,
+    user_id bigint not null references users(user_id)
 );

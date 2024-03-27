@@ -1,7 +1,7 @@
 package com.example.turboaz.service;
 
-import com.example.turboaz.dao.UserEntity;
-import com.example.turboaz.dao.UserRepository;
+import com.example.turboaz.dao.entity.UserEntity;
+import com.example.turboaz.dao.repository.UserRepository;
 import com.example.turboaz.exception.EntityExistException;
 import com.example.turboaz.exception.EntityNotFoundException;
 import com.example.turboaz.mapper.UserMapper;
@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;

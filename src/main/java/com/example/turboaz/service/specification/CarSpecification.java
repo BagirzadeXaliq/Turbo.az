@@ -1,6 +1,6 @@
 package com.example.turboaz.service.specification;
 
-import com.example.turboaz.dao.CarEntity;
+import com.example.turboaz.dao.entity.CarEntity;
 import com.example.turboaz.model.CarFilterDTO;
 import org.springframework.data.jpa.domain.Specification;
 

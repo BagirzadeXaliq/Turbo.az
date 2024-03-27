@@ -2,6 +2,7 @@ package com.example.turboaz.controller;
 
 import com.example.turboaz.model.ImageDTO;
 import com.example.turboaz.service.ImageService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ public class ImageController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadImage(@RequestBody ImageDTO newImage) {
+    public void uploadImage(@Valid @RequestBody ImageDTO newImage) {
         imageService.uploadImage(newImage);
     }
 
@@ -27,7 +28,7 @@ public class ImageController {
     }
 
     @PutMapping("/{imageId}")
-    public void updateImage(@PathVariable Integer imageId, @RequestBody ImageDTO updatedImage) {
+    public void updateImage(@PathVariable Integer imageId,@Valid @RequestBody ImageDTO updatedImage) {
         imageService.updateImage(imageId, updatedImage);
     }
 

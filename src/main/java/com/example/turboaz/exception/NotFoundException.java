@@ -5,3 +5,5 @@ public class NotFoundException extends RuntimeException {
         super(message);
     }
 }
+
+// car, entity, image, review, transaction, user

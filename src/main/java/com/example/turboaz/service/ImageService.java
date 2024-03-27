@@ -1,7 +1,7 @@
 package com.example.turboaz.service;
 
-import com.example.turboaz.dao.ImageEntity;
-import com.example.turboaz.dao.ImageRepository;
+import com.example.turboaz.dao.entity.ImageEntity;
+import com.example.turboaz.dao.repository.ImageRepository;
 import com.example.turboaz.exception.ImageNotFoundException;
 import com.example.turboaz.mapper.ImageMapper;
 import com.example.turboaz.model.ImageDTO;

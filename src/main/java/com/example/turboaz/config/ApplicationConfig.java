@@ -1,6 +1,6 @@
 package com.example.turboaz.config;
 
-import com.example.turboaz.dao.UserRepository;
+import com.example.turboaz.dao.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

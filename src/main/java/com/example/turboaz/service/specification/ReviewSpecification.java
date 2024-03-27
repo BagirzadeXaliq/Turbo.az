@@ -1,6 +1,6 @@
 package com.example.turboaz.service.specification;
 
-import com.example.turboaz.dao.ReviewEntity;
+import com.example.turboaz.dao.entity.ReviewEntity;
 import com.example.turboaz.model.ReviewFilterDTO;
 import org.springframework.data.jpa.domain.Specification;
 

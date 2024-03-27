@@ -1,5 +1,6 @@
-package com.example.turboaz.dao;
+package com.example.turboaz.dao.entity;
 
+import com.example.turboaz.dao.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Date;

@@ -1,7 +1,7 @@
 package com.example.turboaz.service;
 
-import com.example.turboaz.dao.TransactionEntity;
-import com.example.turboaz.dao.TransactionRepository;
+import com.example.turboaz.dao.entity.TransactionEntity;
+import com.example.turboaz.dao.repository.TransactionRepository;
 import com.example.turboaz.enums.TransactionStatus;
 import com.example.turboaz.exception.TransactionNotFoundException;
 import com.example.turboaz.mapper.TransactionMapper;

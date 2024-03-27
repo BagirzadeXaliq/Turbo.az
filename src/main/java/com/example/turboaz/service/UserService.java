@@ -1,7 +1,7 @@
 package com.example.turboaz.service;
 
-import com.example.turboaz.dao.UserEntity;
-import com.example.turboaz.dao.UserRepository;
+import com.example.turboaz.dao.entity.UserEntity;
+import com.example.turboaz.dao.repository.UserRepository;
 import com.example.turboaz.enums.UserStatus;
 import com.example.turboaz.exception.PasswordWrongException;
 import com.example.turboaz.exception.UserNotFoundException;

@@ -1,5 +1,6 @@
-package com.example.turboaz.dao;
+package com.example.turboaz.dao.entity;
 
+import com.example.turboaz.dao.entity.UserEntity;
 import com.example.turboaz.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
