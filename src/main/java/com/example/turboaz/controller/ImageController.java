@@ -17,23 +17,23 @@ public class ImageController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadImage(@Valid @RequestBody ImageDTO newImage) {
-        imageService.uploadImage(newImage);
+    public void upload(@Valid @RequestBody ImageDTO newImage) {
+        imageService.upload(newImage);
     }
 
     @DeleteMapping("/{imageId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteImage(@PathVariable Integer imageId) {
-        imageService.deleteImage(imageId);
+    public void delete(@PathVariable Integer imageId) {
+        imageService.delete(imageId);
     }
 
     @PutMapping("/{imageId}")
-    public void updateImage(@PathVariable Integer imageId,@Valid @RequestBody ImageDTO updatedImage) {
-        imageService.updateImage(imageId, updatedImage);
+    public void update(@PathVariable Integer imageId,@Valid @RequestBody ImageDTO updatedImage) {
+        imageService.update(imageId, updatedImage);
     }
 
-    @GetMapping("/list/{carId}")
-    public Page<ImageDTO> listImages(@PathVariable Long carId, Pageable pageable) {
-        return imageService.listImages(carId, pageable);
+    @GetMapping("/{carId}")
+    public Page<ImageDTO> getList(@PathVariable Long carId, Pageable pageable) {
+        return imageService.getList(carId, pageable);
     }
 }

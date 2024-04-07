@@ -1,20 +1,21 @@
-package com.example.turboaz.service;
+package com.example.turboaz.service.impl;
 
 import com.example.turboaz.dao.entity.UserEntity;
 import com.example.turboaz.dao.repository.UserRepository;
 import com.example.turboaz.enums.UserStatus;
+import com.example.turboaz.exception.NotFoundException;
 import com.example.turboaz.exception.PasswordWrongException;
-import com.example.turboaz.exception.UserNotFoundException;
 import com.example.turboaz.mapper.UserMapper;
 import com.example.turboaz.model.ChangePasswordDTO;
 import com.example.turboaz.model.UserDTO;
 import com.example.turboaz.model.UserRegisterRequestDTO;
 import com.example.turboaz.model.UserStatusDTO;
-import com.example.turboaz.service.utility.JwtUtil;
+import com.example.turboaz.service.UserService;
+import com.example.turboaz.service.auth.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,13 +23,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final JwtUtil jwtUtil;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
+    @Override
     public UserDTO getUserDetails(HttpServletRequest request) {
         Long userId = getUserIdFromRequest(request);
         log.debug("Getting user by id: {}", userId);
@@ -36,12 +38,13 @@ public class UserService {
                 .map(userMapper::toUserDTO)
                 .orElseThrow(() -> {
                     log.error("User not found with id: {}", userId);
-                    return new UserNotFoundException("User not found with id: " + userId);
+                    return new NotFoundException("User not found with id: " + userId);
                 });
         log.debug("User found: {}", userDTO);
         return userDTO;
     }
 
+    @Override
     public List<UserDTO> getAll() {
         log.debug("Getting all users");
         return userRepository.findAll()
@@ -50,6 +53,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void updateStatus(UserStatusDTO userStatusDTO) {
         Long userId = Long.valueOf(userStatusDTO.getId());
         log.debug("Updating status for user with id: {}", userId);
@@ -59,18 +63,20 @@ public class UserService {
         log.debug("Status updated successfully for user with id: {}", userId);
     }
 
+    @Override
     public List<UserDTO> getUserByStatus(UserStatus userStatus) {
         log.debug("Getting users by status: {}", userStatus);
         return userRepository.findByStatus(userStatus)
                 .orElseThrow(() -> {
                     log.error("No users found with status: {}", userStatus);
-                    return new UserNotFoundException("No users found with status: " + userStatus);
+                    return new NotFoundException("No users found with status: " + userStatus);
                 })
                 .stream()
                 .map(userMapper::toUserDTO)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void updateUser(HttpServletRequest request, UserRegisterRequestDTO userRegisterRequestDTO) {
         Long userId = getUserIdFromRequest(request);
         log.debug("Updating user with id: {}", userId);
@@ -80,6 +86,7 @@ public class UserService {
         log.debug("User updated successfully with id: {}", userId);
     }
 
+    @Override
     public void changePassword(HttpServletRequest request, ChangePasswordDTO changePasswordDTO) {
         Long userId = getUserIdFromRequest(request);
         log.debug("Changing password for user with id: {}", userId);
@@ -98,22 +105,22 @@ public class UserService {
     }
 
     private Long getUserIdFromRequest(HttpServletRequest request) {
-        return Long.valueOf(jwtUtil.getUserId(jwtUtil.resolveClaims(request)));
+        return Long.valueOf(jwtService.getUserId(jwtService.resolveClaims(request)));
     }
 
     private UserEntity getUserEntityById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> {
                     log.error("User not found with id: {}", userId);
-                    return new UserNotFoundException("User not found with id: " + userId);
+                    return new NotFoundException("User not found with id: " + userId);
                 });
     }
 
     private UserEntity getUserEntityByUsername(String username) {
-        return userRepository.findByUsername(username)
+        return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> {
                     log.error("User not found with username: {}", username);
-                    return new UserNotFoundException("User not found with username: " + username);
+                    return new NotFoundException("User not found with username: " + username);
                 });
     }
 

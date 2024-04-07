@@ -1,6 +1,5 @@
 package com.example.turboaz.dao.entity;
 
-import com.example.turboaz.dao.entity.UserEntity;
 import com.example.turboaz.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +18,6 @@ public class RoleEntity {
     private Integer roleId;
     @Enumerated(EnumType.STRING)
     private RoleEnum name;
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<UserEntity> users;
 }

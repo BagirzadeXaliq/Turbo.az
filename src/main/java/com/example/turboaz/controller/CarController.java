@@ -18,28 +18,28 @@ public class CarController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCar(@Valid @RequestBody CarDTO newCar) {
-        carService.addCar(newCar);
+    public void add(@Valid @RequestBody CarDTO newCar) {
+        carService.add(newCar);
     }
 
     @DeleteMapping("/{carId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCar(@PathVariable Integer carId) {
-        carService.deleteCar(carId);
+    public void delete(@PathVariable Integer carId) {
+        carService.delete(carId);
     }
 
     @PutMapping("/{carId}")
-    public void updateCarDetails(@PathVariable Integer carId, @Valid @RequestBody CarDTO updatedCar) {
-        carService.updateCarDetails(carId, updatedCar);
+    public void updateDetails(@PathVariable Integer carId, @Valid @RequestBody CarDTO updatedCar) {
+        carService.updateDetails(carId, updatedCar);
     }
 
-    @GetMapping ("/details/{carId}")
-    public CarDTO viewCarDetails(@PathVariable Integer carId) {
-        return carService.viewCarDetails(carId);
+    @GetMapping ("/{carId}")
+    public CarDTO viewDetails(@PathVariable Integer carId) {
+        return carService.viewDetails(carId);
     }
 
-    @GetMapping("/list")
-    public Page<CarDTO> listCars(@Valid CarFilterDTO carFilterDto, Pageable pageable) {
-        return carService.listCars(carFilterDto, pageable);
+    @GetMapping
+    public Page<CarDTO> getList(@Valid CarFilterDTO carFilterDto, Pageable pageable) {
+        return carService.getList(carFilterDto, pageable);
     }
 }
