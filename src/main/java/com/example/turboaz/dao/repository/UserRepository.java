@@ -10,7 +10,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long>, JpaSpecificationExecutor<UserEntity> {
     Optional<UserEntity> findUserByUsername(String username);
 
-    Optional<UserEntity> findByUsername(String username);
-
     Optional<List<UserEntity>> findByStatus(UserStatus status);
 }

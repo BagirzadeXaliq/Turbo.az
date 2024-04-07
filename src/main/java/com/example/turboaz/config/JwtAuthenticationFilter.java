@@ -1,6 +1,6 @@
 package com.example.turboaz.config;
 
-import com.example.turboaz.service.JwtService;
+import com.example.turboaz.service.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

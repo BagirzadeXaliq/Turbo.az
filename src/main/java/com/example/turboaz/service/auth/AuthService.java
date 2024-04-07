@@ -1,9 +1,9 @@
-package com.example.turboaz.service;
+package com.example.turboaz.service.auth;
 
 import com.example.turboaz.dao.entity.UserEntity;
 import com.example.turboaz.dao.repository.UserRepository;
 import com.example.turboaz.exception.EntityExistException;
-import com.example.turboaz.exception.EntityNotFoundException;
+import com.example.turboaz.exception.NotFoundException;
 import com.example.turboaz.mapper.UserMapper;
 import com.example.turboaz.model.AuthRequestDTO;
 import com.example.turboaz.model.AuthenticationDTO;
@@ -75,7 +75,7 @@ public class AuthService {
     public void deleteUser(String username) {
         log.info("Deleting user: {}", username);
         var user = userRepository.findUserByUsername(username).orElseThrow(
-                () -> new EntityNotFoundException("USER_NOT_FOUND")
+                () -> new NotFoundException("USER_NOT_FOUND")
         );
         user.getRoles().clear();
         userRepository.deleteById(user.getUserId());

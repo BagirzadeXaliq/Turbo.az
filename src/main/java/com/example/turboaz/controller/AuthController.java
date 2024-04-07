@@ -3,7 +3,7 @@ package com.example.turboaz.controller;
 import com.example.turboaz.model.AuthRequestDTO;
 import com.example.turboaz.model.AuthenticationDTO;
 import com.example.turboaz.model.UserRegisterRequestDTO;
-import com.example.turboaz.service.AuthService;
+import com.example.turboaz.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -17,22 +17,22 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping
-    public void initiateTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
-        transactionService.initiateTransaction(transactionDTO);
+    public void initiate(@Valid @RequestBody TransactionDTO transactionDTO) {
+        transactionService.initiate(transactionDTO);
     }
 
     @PutMapping ("/update-status")
-    public void updateTransactionStatus(@Valid @RequestBody TransactionStatusUpdateDTO updatedTransactionStatus) {
-        transactionService.updateTransactionStatus(updatedTransactionStatus);
+    public void updateStatus(@Valid @RequestBody TransactionStatusUpdateDTO updatedTransactionStatus) {
+        transactionService.updateStatus(updatedTransactionStatus);
     }
 
     @PostMapping("/cancel")
-    public void cancelTransaction(@Valid @RequestBody TransactionCancellationDTO cancellationDTO) {
-        transactionService.cancelTransaction(cancellationDTO);
+    public void cancel(@Valid @RequestBody TransactionCancellationDTO cancellationDTO) {
+        transactionService.cancel(cancellationDTO);
     }
 
-    @GetMapping("/history/{userId}")
-    public Page<TransactionDTO> viewTransactionHistory(@PathVariable Long userId, Pageable pageable) {
-        return transactionService.viewTransactionHistory(userId, pageable);
+    @GetMapping("/{userId}")
+    public Page<TransactionDTO> getList(@PathVariable Long userId, Pageable pageable) {
+        return transactionService.getList(userId, pageable);
     }
 }

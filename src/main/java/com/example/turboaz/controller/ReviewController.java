@@ -18,23 +18,23 @@ public class ReviewController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createReview(@Valid @RequestBody ReviewDTO newReview) {
-        reviewService.createReview(newReview);
+    public void create(@Valid @RequestBody ReviewDTO newReview) {
+        reviewService.create(newReview);
     }
 
     @DeleteMapping("/{reviewId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteReview(@PathVariable Integer reviewId) {
-        reviewService.deleteReview(reviewId);
+    public void delete(@PathVariable Integer reviewId) {
+        reviewService.delete(reviewId);
     }
 
     @PutMapping("/{reviewId}")
-    public void updateReview(@PathVariable Integer reviewId,@Valid @RequestBody ReviewDTO updatedReview) {
-        reviewService.updateReview(reviewId, updatedReview);
+    public void update(@PathVariable Integer reviewId, @Valid @RequestBody ReviewDTO updatedReview) {
+        reviewService.update(reviewId, updatedReview);
     }
 
-    @GetMapping("/list/{carId}")
-    public Page<ReviewDTO> listReviews(@PathVariable Integer carId,@Valid ReviewFilterDTO reviewFilterDto, Pageable pageable) {
-        return reviewService.listReviews(carId, reviewFilterDto, pageable);
+    @GetMapping("/{carId}")
+    public Page<ReviewDTO> getList(@PathVariable Integer carId,@Valid ReviewFilterDTO reviewFilterDto, Pageable pageable) {
+        return reviewService.getList(carId, reviewFilterDto, pageable);
     }
 }

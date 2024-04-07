@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface CarRepository extends JpaRepository<CarEntity, Integer>, JpaSpecificationExecutor<CarEntity> {
 
-    void deleteByYearBefore(Integer date);
+    void deleteByYearBefore(Long date);
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -48,13 +49,6 @@ public class GlobalExceptionHandler {
     public ExceptionDTO handleMaxValueExceededException(ConstraintViolationException ex) {
         log.error("ConstraintViolationException ->  {}", ex.getMessage());
         return new ExceptionDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionDTO handleNotFound(EntityNotFoundException entityNotFoundException){
-        log.error("ActionLog.error not found: {} ", entityNotFoundException.getMessage());
-        return new ExceptionDTO(HttpStatus.NOT_FOUND.value(), entityNotFoundException.getMessage());
     }
 
     @ExceptionHandler(EntityExistException.class)
@@ -92,17 +86,16 @@ public class GlobalExceptionHandler {
         return new ExceptionDTO(HttpStatus.FORBIDDEN.value(), exception.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionDTO handleValidationExceptions(MethodArgumentNotValidException ex) {
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
+        for (FieldError fieldError : fieldErrors) {
+            errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        log.error("Validation error: {}", errors);
+        return new ExceptionDTO(HttpStatus.BAD_REQUEST.value(), "Validation error");
     }
 
     @ExceptionHandler(Exception.class)

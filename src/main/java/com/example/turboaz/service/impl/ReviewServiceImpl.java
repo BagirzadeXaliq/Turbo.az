@@ -1,11 +1,12 @@
-package com.example.turboaz.service;
+package com.example.turboaz.service.impl;
 
 import com.example.turboaz.dao.entity.ReviewEntity;
 import com.example.turboaz.dao.repository.ReviewRepository;
-import com.example.turboaz.exception.ReviewNotFoundException;
+import com.example.turboaz.exception.NotFoundException;
 import com.example.turboaz.mapper.ReviewMapper;
 import com.example.turboaz.model.ReviewDTO;
 import com.example.turboaz.model.ReviewFilterDTO;
+import com.example.turboaz.service.ReviewService;
 import com.example.turboaz.service.specification.ReviewSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,45 +18,39 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class ReviewService {
+public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ReviewMapper reviewMapper;
 
-    public void createReview(ReviewDTO newReview) {
+    @Override
+    public void create(ReviewDTO newReview) {
         log.info("Creating new review: {}", newReview);
         ReviewEntity reviewEntity = reviewMapper.mapToEntity(newReview);
         reviewRepository.save(reviewEntity);
         log.info("Review created successfully: {}", newReview);
     }
 
-    public void deleteReview(Integer reviewId) {
+    @Override
+    public void delete(Integer reviewId) {
         log.info("Deleting review with ID: {}", reviewId);
-        if (reviewRepository.existsById(reviewId)) {
-            reviewRepository.deleteById(reviewId);
-            log.info("Review deleted successfully with ID: {}", reviewId);
-        } else {
-            log.error("Review not found with ID: {}", reviewId);
-            throw new ReviewNotFoundException("Review not found with ID: " + reviewId);
-        }
+        reviewRepository.deleteById(reviewId);
+        log.info("Review deleted successfully with ID: {}", reviewId);
     }
 
-    public void updateReview(Integer reviewId, ReviewDTO updatedReview){
+    @Override
+    public void update(Integer reviewId, ReviewDTO updatedReview){
         log.info("Updating review with ID: {}", reviewId);
-        if (reviewRepository.existsById(reviewId)) {
-            ReviewEntity existingReview = reviewRepository.findById(reviewId).orElseThrow(
-                    () -> new ReviewNotFoundException("Review not found with ID: " + reviewId));
-            ReviewEntity updatedReviewEntity = reviewMapper.mapToEntity(updatedReview);
-            updatedReviewEntity.setReviewId(existingReview.getReviewId());
-            reviewRepository.save(updatedReviewEntity);
-            log.info("Review updated successfully with ID: {}", reviewId);
-        } else {
-            log.error("Review not found with ID: {}", reviewId);
-            throw new ReviewNotFoundException("Review not found with ID: " + reviewId);
-        }
+        ReviewEntity existingReview = reviewRepository.findById(reviewId).orElseThrow(
+                () -> new NotFoundException("Review not found with ID: " + reviewId));
+        ReviewEntity updatedReviewEntity = reviewMapper.mapToEntity(updatedReview);
+        updatedReviewEntity.setReviewId(existingReview.getReviewId());
+        reviewRepository.save(updatedReviewEntity);
+        log.info("Review updated successfully with ID: {}", reviewId);
     }
 
-    public Page<ReviewDTO> listReviews(Integer carId, ReviewFilterDTO reviewFilterDto, Pageable pageable) {
+    @Override
+    public Page<ReviewDTO> getList(Integer carId, ReviewFilterDTO reviewFilterDto, Pageable pageable) {
         log.info("Fetching reviews for car ID: {}", carId);
         Specification<ReviewEntity> specifications = new ReviewSpecification().getReviewSpecification(carId, reviewFilterDto);
         Page<ReviewEntity> reviewPage = reviewRepository.findAll(specifications, pageable);
