@@ -40,7 +40,7 @@ public class JwtService {
         return generateToken(new HashMap<>(),user);
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserEntity user) {
+    public String generateToken(Map<String, Object> extraClaims, UserDetails user) {
         log.info("Generating token for user: {}", user.getUsername());
         return Jwts
                 .builder()

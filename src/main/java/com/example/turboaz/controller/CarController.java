@@ -39,7 +39,7 @@ public class CarController {
     }
 
     @GetMapping
-    public Page<CarDTO> getList(@Valid CarFilterDTO carFilterDto, Pageable pageable) {
-        return carService.getList(carFilterDto, pageable);
+    public Page<CarDTO> getList(Pageable pageable) {
+        return carService.getList(pageable);
     }
 }

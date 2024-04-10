@@ -69,11 +69,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Page<CarDTO> getList(CarFilterDTO carFilterDto, Pageable pageable) {
-        log.info("Fetching list of cars with filter: {}", carFilterDto);
-        var specifications = new CarSpecification().getCarSpecification(carFilterDto);
-        Page<CarEntity> carPage = carRepository.findAll(specifications, pageable);
-        log.info("List of cars fetched successfully with filter: {}", carFilterDto);
+    public Page<CarDTO> getList(Pageable pageable) {
+        log.info("Fetching list of cars");
+//        var specifications = new CarSpecification().getCarSpecification(carFilterDto);
+        Page<CarEntity> carPage = carRepository.findAll(pageable);
+        log.info("List of cars fetched successfully with filter");
         return carPage.map(carMapper::mapToDTO);
     }
 

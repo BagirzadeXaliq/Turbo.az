@@ -52,10 +52,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Page<ReviewDTO> getList(Integer carId, ReviewFilterDTO reviewFilterDto, Pageable pageable) {
+    public Page<ReviewDTO> getList(Integer carId, Pageable pageable) {
         log.info("Fetching reviews for car ID: {}", carId);
-        Specification<ReviewEntity> specifications = new ReviewSpecification().getReviewSpecification(carId, reviewFilterDto);
-        Page<ReviewEntity> reviewPage = reviewRepository.findAll(specifications, pageable);
+       // Specification<ReviewEntity> specifications = new ReviewSpecification().getReviewSpecification(carId, reviewFilterDto);
+        Page<ReviewEntity> reviewPage = reviewRepository.findAll(pageable);
         log.info("Reviews fetched successfully for car ID: {}", carId);
         return reviewPage.map(reviewMapper::mapToDTO);
     }

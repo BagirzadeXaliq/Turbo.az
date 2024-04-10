@@ -13,6 +13,6 @@ public interface ReviewService {
 
     void update(Integer reviewId, ReviewDTO updatedReview);
 
-    Page<ReviewDTO> getList(Integer carId, ReviewFilterDTO reviewFilterDto, Pageable pageable);
+    Page<ReviewDTO> getList(Integer carId, Pageable pageable);
 
 }
