@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,9 +14,7 @@ import java.util.Set;
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roleId;
+    private Integer id;
     @Enumerated(EnumType.STRING)
     private RoleEnum name;
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private Set<UserEntity> users;
 }

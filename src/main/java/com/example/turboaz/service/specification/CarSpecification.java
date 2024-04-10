@@ -31,6 +31,7 @@ public class CarSpecification {
                 .and(modelSpecification)
                 .and(yearSpecification)
                 .and(priceSpecification);
+
     }
 
 }

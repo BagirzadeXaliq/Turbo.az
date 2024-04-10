@@ -17,8 +17,8 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping
-    public void initiate(@Valid @RequestBody TransactionDTO transactionDTO) {
-        transactionService.initiate(transactionDTO);
+    public TransactionDTO initiate(@Valid @RequestBody TransactionDTO transactionDTO) {
+        return transactionService.initiate(transactionDTO);
     }
 
     @PutMapping ("/update-status")

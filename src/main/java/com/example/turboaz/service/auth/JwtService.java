@@ -23,7 +23,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JwtService {
 
-    private static final String SECRET_KEY = "4E645267556B58703272357538782F413F4428472B4B6250655368566D597133";
+    private static final String SECRET_KEY = "ff31c08be7688c301867d7927c739f890b88b5dcb6d8316dea4fc4547a0f073c";
 
     public String extractUsername(String token){
         log.info("Extracting username from token: {}", token);
@@ -42,13 +42,12 @@ public class JwtService {
 
     public String generateToken(Map<String, Object> extraClaims, UserEntity user) {
         log.info("Generating token for user: {}", user.getUsername());
-        extraClaims.put("userId", user.getUserId());
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -112,8 +111,12 @@ public class JwtService {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
-    public Integer getUserId(Claims claims){
-        return (Integer) claims.get("user_id");
+    public Long getUserId(Claims claims){
+        Long userId = claims.get("user_id", Long.class);
+        if (userId == null) {
+            throw new IllegalArgumentException("Missing or invalid user_id claim in JWT");
+        }
+        return userId;
     }
 
     private Key getSignInKey(){

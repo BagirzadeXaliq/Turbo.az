@@ -24,11 +24,13 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewMapper reviewMapper;
 
     @Override
-    public void create(ReviewDTO newReview) {
+    public ReviewDTO create(ReviewDTO newReview) {
         log.info("Creating new review: {}", newReview);
         ReviewEntity reviewEntity = reviewMapper.mapToEntity(newReview);
-        reviewRepository.save(reviewEntity);
-        log.info("Review created successfully: {}", newReview);
+        reviewEntity = reviewRepository.save(reviewEntity);
+        ReviewDTO createdReview = reviewMapper.mapToDTO(reviewEntity);
+        log.info("Review created successfully: {}", createdReview);
+        return createdReview;
     }
 
     @Override

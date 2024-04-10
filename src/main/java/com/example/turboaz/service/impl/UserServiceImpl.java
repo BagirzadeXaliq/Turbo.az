@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Long getUserIdFromRequest(HttpServletRequest request) {
-        return Long.valueOf(jwtService.getUserId(jwtService.resolveClaims(request)));
+        return jwtService.getUserId(jwtService.resolveClaims(request));
     }
 
     private UserEntity getUserEntityById(Long userId) {

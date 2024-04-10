@@ -18,8 +18,8 @@ public class ReviewController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Valid @RequestBody ReviewDTO newReview) {
-        reviewService.create(newReview);
+    public ReviewDTO create(@Valid @RequestBody ReviewDTO newReview) {
+        return reviewService.create(newReview);
     }
 
     @DeleteMapping("/{reviewId}")

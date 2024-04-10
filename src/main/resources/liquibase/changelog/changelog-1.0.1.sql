@@ -45,10 +45,6 @@ create table user_roles (
     primary key (user_id, role_id)
 );
 
-create table authorities (
-    name varchar(255) not null primary key
-);
-
 create table password_reset_tokens (
     id bigserial primary key,
     token varchar(255) not null,

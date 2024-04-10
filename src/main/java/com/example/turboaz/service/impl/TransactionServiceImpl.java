@@ -26,11 +26,13 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional
-    public void initiate(TransactionDTO transactionDTO){
+    public TransactionDTO initiate(TransactionDTO transactionDTO){
         log.info("Starting transaction for car ID: {}", transactionDTO.getCarId());
         TransactionEntity transactionEntity = transactionMapper.mapToEntity(transactionDTO);
-        transactionRepository.save(transactionEntity);
+        transactionEntity = transactionRepository.save(transactionEntity);
+        TransactionDTO initiatedTransaction = transactionMapper.mapToDTO(transactionEntity);
         log.info("Transaction started successfully for car ID: {}", transactionDTO.getCarId());
+        return initiatedTransaction;
     }
 
     @Override
@@ -39,37 +41,30 @@ public class TransactionServiceImpl implements TransactionService {
         Long transactionId = updatedTransactionStatus.getTransactionId();
         TransactionStatus newStatus = updatedTransactionStatus.getNewStatus();
         log.info("Updating transaction status for transaction ID: {}", transactionId);
-        try {
-            TransactionEntity transactionEntity = transactionRepository.findById(transactionId)
-                    .orElseThrow(() -> new NotFoundException("Transaction not found with ID: " + transactionId));
-            transactionEntity.setStatus(newStatus);
-            transactionRepository.save(transactionEntity);
-            log.info("Transaction status updated successfully for transaction ID: {}", transactionId);
-        } catch (NotFoundException e) {
-            log.error("Transaction not found with ID: {}", transactionId);
-            throw e;
-        } catch (Exception e) {
-            log.error("Error updating transaction status for transaction ID: {}", transactionId, e);
-        }
+        TransactionEntity transactionEntity = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new NotFoundException("Transaction not found with ID: " + transactionId));
+        transactionEntity.setStatus(newStatus);
+        transactionRepository.save(transactionEntity);
+        log.info("Transaction status updated successfully for transaction ID: {}", transactionId);
     }
+
+//    public void update(Long id, TransactionDTO transactionDTO){
+//        var exist = transactionRepository.findById(id).orElseThrow(
+//                () -> new NotFoundException("Transaction not found with ID: \" + transactionId")
+//        );
+//        transactionRepository.save(transactionMapper.mapToUpdateEntity(exist, transactionDTO));
+//    }
 
     @Override
     @Transactional
     public void cancel(TransactionCancellationDTO cancellationDTO) {
         Long transactionId = cancellationDTO.getTransactionId();
         log.info("Cancelling transaction for transaction ID: {}", transactionId);
-        try {
-            TransactionEntity transactionEntity = transactionRepository.findById(transactionId)
-                    .orElseThrow(() -> new NotFoundException("Transaction not found with ID: " + transactionId));
-            transactionEntity.setStatus(TransactionStatus.CANCELLED);
-            transactionRepository.save(transactionEntity);
-            log.info("Transaction cancelled successfully for transaction ID: {}", transactionId);
-        } catch (NotFoundException e) {
-            log.error("Transaction not found with ID: {}", transactionId);
-            throw e;
-        } catch (Exception e) {
-            log.error("Error cancelling transaction for transaction ID: {}", transactionId, e);
-        }
+        TransactionEntity transactionEntity = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new NotFoundException("Transaction not found with ID: " + transactionId));
+        transactionEntity.setStatus(TransactionStatus.CANCELLED);
+        transactionRepository.save(transactionEntity);
+        log.info("Transaction cancelled successfully for transaction ID: {}", transactionId);
     }
 
     @Override

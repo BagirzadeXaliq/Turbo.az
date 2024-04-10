@@ -18,8 +18,8 @@ public class CarController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@Valid @RequestBody CarDTO newCar) {
-        carService.add(newCar);
+    public CarDTO add(@Valid @RequestBody CarDTO newCar) {
+        return carService.add(newCar);
     }
 
     @DeleteMapping("/{carId}")

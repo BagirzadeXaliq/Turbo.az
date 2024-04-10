@@ -17,8 +17,8 @@ public class ImageController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void upload(@Valid @RequestBody ImageDTO newImage) {
-        imageService.upload(newImage);
+    public ImageDTO upload(@Valid @RequestBody ImageDTO newImage) {
+        return imageService.upload(newImage);
     }
 
     @DeleteMapping("/{imageId}")
