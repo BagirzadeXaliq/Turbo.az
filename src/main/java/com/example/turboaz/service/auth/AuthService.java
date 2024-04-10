@@ -78,7 +78,7 @@ public class AuthService {
                 () -> new NotFoundException("USER_NOT_FOUND")
         );
         user.getRoles().clear();
-        userRepository.deleteById(user.getUserId());
+        userRepository.deleteById(user.getId());
         log.info("User deleted successfully: {}", username);
     }
 

@@ -7,11 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface TransactionService {
-    void initiate(TransactionDTO transactionDTO);
+
+    TransactionDTO initiate(TransactionDTO transactionDTO);
 
     void updateStatus(TransactionStatusUpdateDTO updatedTransactionStatus);
 
     void cancel(TransactionCancellationDTO cancellationDTO);
 
     Page<TransactionDTO> getList(Long carId, Pageable pageable);
+
 }

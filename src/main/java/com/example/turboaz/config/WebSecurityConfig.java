@@ -1,5 +1,6 @@
 package com.example.turboaz.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,16 +45,24 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/images").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.DELETE,"/images/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.PUT,"/images/**").hasAnyRole(USER)
-                                .requestMatchers(HttpMethod.GET,"/images/list/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/images/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/reviews").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.DELETE,"/reviews/**").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.PUT,"/reviews/**").hasAnyRole(USER)
-                                .requestMatchers(HttpMethod.GET,"/reviews/list/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/reviews/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/transactions").hasAnyRole(USER)
                                 .requestMatchers(HttpMethod.PUT,"/transactions/update-status").hasAnyRole(ADMIN)
                                 .requestMatchers(HttpMethod.POST,"/transactions/cancel").hasAnyRole(ADMIN)
-                                .requestMatchers(HttpMethod.GET,"/transactions/history/**").hasAnyRole(USER)
-                                .anyRequest().authenticated());
+                                .requestMatchers(HttpMethod.GET,"/transactions/**").hasAnyRole(USER)
+                                .anyRequest().authenticated())
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)
+                        )
+                        .accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.setStatus(HttpServletResponse.SC_FORBIDDEN)
+                        )
+                );
 
         http.authenticationProvider(authenticationProvider);
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

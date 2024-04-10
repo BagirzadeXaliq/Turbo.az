@@ -6,10 +6,10 @@ import com.example.turboaz.model.UserDTO;
 import com.example.turboaz.model.UserRegisterRequestDTO;
 import com.example.turboaz.model.UserStatusDTO;
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
 public interface UserService {
+
     UserDTO getUserDetails(HttpServletRequest request);
 
     List<UserDTO> getAll();
@@ -21,4 +21,5 @@ public interface UserService {
     void updateUser(HttpServletRequest request, UserRegisterRequestDTO userRegisterRequestDTO);
 
     void changePassword(HttpServletRequest request, ChangePasswordDTO changePasswordDTO);
+
 }

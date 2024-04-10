@@ -5,6 +5,7 @@ import com.example.turboaz.model.ReviewFilterDTO;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ReviewSpecification {
+
     public Specification<ReviewEntity> getReviewSpecification(Integer carId, ReviewFilterDTO reviewFilterDto) {
         return Specification.where(reviewsBelongingToCar(carId))
                 .and(withRating(reviewFilterDto.getRating()));
@@ -20,4 +21,5 @@ public class ReviewSpecification {
         }
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("rating"), rating);
     }
+
 }

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ReviewService {
 
-    void create(ReviewDTO newReview);
+    ReviewDTO create(ReviewDTO newReview);
 
     void delete(Integer reviewId);
 

@@ -32,11 +32,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void add(CarDTO newCar) {
+    public CarDTO add(CarDTO newCar) {
         log.info("Adding new car: {}", newCar);
         CarEntity carEntity = carMapper.mapToEntity(newCar);
-        carRepository.save(carEntity);
-        log.info("New car added successfully: {}", newCar);
+        carEntity = carRepository.save(carEntity);
+        CarDTO addedCar = carMapper.mapToDTO(carEntity);
+        log.info("New car added successfully: {}", addedCar);
+        return addedCar;
     }
 
     @Override

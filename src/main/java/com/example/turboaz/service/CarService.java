@@ -10,7 +10,7 @@ public interface CarService {
 
     void deleteCarsOlderThan(LocalDate date);
 
-    void add(CarDTO newCar);
+    CarDTO add(CarDTO newCar);
 
     void delete(Integer carId);
 

@@ -14,6 +14,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class SchedulerService {
+
     private final CarService carService;
     private final PasswordResetTokenRepository tokenRepository;
 
@@ -31,4 +32,5 @@ public class SchedulerService {
         tokenRepository.deleteAll(expiredTokens);
         System.out.println("Scheduled task: Cleaning up expired password reset tokens.");
     }
+
 }

@@ -21,11 +21,13 @@ public class ImageServiceImpl implements ImageService {
     private final ImageMapper imageMapper;
 
     @Override
-    public void upload(ImageDTO newImage) {
+    public ImageDTO upload(ImageDTO newImage) {
         log.info("Creating new image: {}", newImage);
         ImageEntity imageEntity = imageMapper.mapToEntity(newImage);
-        imageRepository.save(imageEntity);
-        log.info("Image created successfully: {}", newImage);
+        imageEntity = imageRepository.save(imageEntity);
+        ImageDTO uploadedImage = imageMapper.mapToDTO(imageEntity);
+        log.info("Image created successfully: {}", uploadedImage);
+        return uploadedImage;
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ImageService {
 
-    void upload(ImageDTO newImage);
+    ImageDTO upload(ImageDTO newImage);
 
     void delete(Integer imageId);
 
