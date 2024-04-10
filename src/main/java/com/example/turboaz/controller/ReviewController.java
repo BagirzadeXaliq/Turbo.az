@@ -34,7 +34,7 @@ public class ReviewController {
     }
 
     @GetMapping("/{carId}")
-    public Page<ReviewDTO> getList(@PathVariable Integer carId,@Valid ReviewFilterDTO reviewFilterDto, Pageable pageable) {
-        return reviewService.getList(carId, reviewFilterDto, pageable);
+    public Page<ReviewDTO> getList(@PathVariable Integer carId, Pageable pageable) {
+        return reviewService.getList(carId, pageable);
     }
 }

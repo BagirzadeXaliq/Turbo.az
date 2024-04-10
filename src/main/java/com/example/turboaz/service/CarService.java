@@ -18,6 +18,6 @@ public interface CarService {
 
     CarDTO viewDetails(Integer carId);
 
-    Page<CarDTO> getList(CarFilterDTO carFilterDto, Pageable pageable);
+    Page<CarDTO> getList(Pageable pageable);
 
 }
